@@ -14,6 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        if let url = connectionOptions.urlContexts.first?.url {
+            parse(url: url)
+        }
+
         let contentView = ContentView(viewModel: .init())
 
         if let windowScene = scene as? UIWindowScene {
@@ -29,6 +33,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
+        parse(url: url)
+    }
+
+    private func parse(url: URL) {
         defer {
             try? FileManager.default.removeItem(at: url)
         }
